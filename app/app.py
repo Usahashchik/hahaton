@@ -19,6 +19,9 @@ path = Path.cwd()
 web_port = int(os.environ['WEBSERVER_PORT'])
 web_host = os.environ['WEBSERVER_HOST']
 logs = path.joinpath(os.environ['PATHS_LOGS'])
+database = path / 'database'
+models = path / 'models'
+utils = path / 'utils'
 
 app = Flask(__name__)
 
@@ -126,6 +129,21 @@ def api_500(error_message):
 # ПОДГРУЗКА И СБОРКА ПРОЕКТА
 # ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
 if __name__ == '__main__':
+
+        # проверка наличия директорий
+    path_cfg = {
+        'database': database,
+        'models': models,
+        'utils': utils,
+        'logs': logs,
+    }
+
+    for key in path_cfg:
+        try:
+            Path(path_cfg[key]).mkdir(parents=False, exist_ok=False)
+            print("Folder create")
+        except:
+            print("Folder exists")
 
     # настройка логирования
     handler = TimedRotatingFileHandler(os.path.join(logs, 'logs.log'), when='H', interval=1, backupCount=60)
