@@ -1,2 +1,34 @@
 # hahaton
-Website project recommending activities for mos.ru users for the hackathon
+Проект веб-сайта для рекомендаций активностей для пользователей сайта mos.ru
+
+## Запуск Prod
+
+1. Скопируйте и заполинте файл переменных
+```
+cp .template.env. Для того чтобы узнать свой UID используйте команду id $user_login.
+```
+
+2. Запустите проект
+```
+docker-compose build --no-cache
+docker-compose up -d
+```
+
+## Запуск Local
+
+
+ВАЖНО!!
+В окружении local директория app полностью примонтированы к контейнеру, что прозволяет изменять код без дополнительного билда конетйнера.
+
+1. Скопируйте и заполинте файл переменных
+```
+cp .template-develop.env. Для того чтобы узнать свой UID используйте команду id $user_login.
+```
+
+2. Запустите проект
+```
+docker-compose build --no-cache
+docker-compose up -d
+```
+
+P.S.    Отключить контейнеры и пересобрать проект можно командой docker-compose down -v. 

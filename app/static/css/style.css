@@ -1,0 +1,27 @@
+h1 {
+    color: rgb(85, 89, 97);
+    text-align: center;
+    padding: 50px;
+}
+h2 {
+    color: rgb(79, 104, 155);
+    text-align: center;
+    padding: 30px;
+}
+h3 {
+    color: rgb(79, 104, 155);
+    text-align: left;
+    padding: 10px;
+}
+
+/* .jumbotron{
+    height: 45vh;
+    width: 40vh;
+    text-align: center;
+} */
+
+.container{
+    height: 19;
+    width: 60;
+    /* text-align: center; */
+}

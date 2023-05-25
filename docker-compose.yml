@@ -1,0 +1,59 @@
+version: '3.8'
+
+
+x-default-settings: &settings
+  restart: always
+  security_opt:
+    - no-new-privileges:true
+
+x-log: &log
+  logging:
+      driver: json-file
+      options:
+           max-size: "10m"
+           max-file: "5"
+
+x-env-app: &env-app
+    UID: ${UID}
+
+    WEBSERVER_HOST: ${WEBSERVER_HOST}
+    WEBSERVER_PORT: ${WEBSERVER_PORT}
+    WEBSERVER_HOST_EXTERNAL: ${WEBSERVER_HOST_EXTERNAL}
+
+    PATHS_LOGS: ${PATHS_LOGS}
+
+    BRANCH: ${BRANCH}
+    BUILD: ${BUILD}
+
+x-env-base: &env-base
+    COMPOSE_PROJECT_NAME: ${COMPOSE_PROJECT_NAME}
+    # тип окружения prod/test/local.
+    # значение по умолчению не указываем, что бы исключить ошибку
+    PROJECT_ENV:          ${PROJECT_ENV}
+
+
+
+services:
+
+  app:
+    <<: [*log, *settings]
+    build:
+      context: app
+      args:
+        - UID=${UID}
+    container_name: rec-platform-app-${PROJECT_ENV}
+    volumes:
+      - ./app/database:/data/database
+    ports:
+      - ${WEBSERVER_HOST_EXTERNAL}:11050
+    environment:
+        <<: *env-app
+
+  
+networks:
+  default:
+    # external: true
+    name: recommendation-platform
+
+volumes:
+  ai-db-data:
